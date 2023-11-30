@@ -31,3 +31,13 @@ def create_binary_masks(harmonic_spectrogram, percussive_spectrogram, beta):
 def apply_binary_mask(spectrogram, mask):
     
     return spectrogram * mask
+
+def calculate_frame_length(time_length, fs, hop_size):
+
+    frame_length = int(np.ceil(time_length * fs / hop_size))
+    return frame_length
+
+def calculate_bin_length(hertz_length, fs, frame_length):
+
+    bin_length = int(np.ceil(hertz_length * frame_length / fs))
+    return bin_length
