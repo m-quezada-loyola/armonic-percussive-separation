@@ -11,12 +11,13 @@ def calculate_power_spectrogram(spectrogram):
 
     return np.abs(spectrogram) ** 2
 
-def vertical_median_filter(data, length):
+def vertical_median_filter(power_spectrogram, length):
 
-    filter_data = signal.medfilt(data, [length, 1])
-    return filter_data
+    filtered_spectrogram = signal.medfilt(power_spectrogram, [length, 1])
+    return filtered_spectrogram
 
-def horizontal_median_filter(data, length):
+def horizontal_median_filter(power_spectrogram, length):
 
-    filter_data = signal.medfilt(data, [1, length])
-    return filter_data
+    filtered_spectrogram = signal.medfilt(power_spectrogram, [1, length])
+    return filtered_spectrogram
+
