@@ -32,6 +32,11 @@ def apply_binary_mask(spectrogram, mask):
     
     return spectrogram * mask
 
+def recover_audio(spectrogram, frame_length, hop_size, data_length):
+    
+    audio = librosa.istft(spectrogram, hop_length=hop_size, win_length=frame_length, length=data_length)
+    return audio
+
 def calculate_frame_length(time_length, fs, hop_size):
 
     frame_length = int(np.ceil(time_length * fs / hop_size))
