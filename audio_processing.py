@@ -27,3 +27,7 @@ def create_binary_masks(harmonic_spectrogram, percussive_spectrogram, beta):
     percussive_mask = np.int8(percussive_spectrogram > beta * harmonic_spectrogram)
     residual_mask   = 1 - (harmonic_mask + percussive_mask)
     return harmonic_mask, percussive_mask, residual_mask
+
+def apply_binary_mask(spectrogram, mask):
+    
+    return spectrogram * mask
