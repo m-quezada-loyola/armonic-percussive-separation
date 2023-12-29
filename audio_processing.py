@@ -51,15 +51,8 @@ def calculate_bin_length(hertz_length, fs, frame_length):
 def even_to_odd(number):
     return number + 1 if (number % 2 == 0) else number
 
-def generate_harmonic_component(spectrogram, harmonic_power_spectrogram, percussive_power_spectrogram, frame_length, hop_size, data_length):
-    harmonic_mask = create_harmonic_mask(harmonic_power_spectrogram, percussive_power_spectrogram)
-    harmonic_spectrogram = apply_binary_mask(spectrogram, harmonic_mask)
-    harmonic_audio = recover_audio(harmonic_spectrogram, frame_length, hop_size, data_length)
-    return harmonic_audio
-
-def generate_percussive_component(spectrogram, harmonic_power_spectrogram, percussive_power_spectrogram, frame_length, hop_size, data_length):
-    percussive_mask = create_harmonic_mask(harmonic_power_spectrogram, percussive_power_spectrogram)
-    percussive_spectrogram = apply_binary_mask(spectrogram, percussive_mask)
-    percussive_audio = recover_audio(percussive_spectrogram, frame_length, hop_size, data_length)
-    return percussive_audio
+def generate_audio_component(spectrogram, component_mask, frame_length, hop_size, data_length):
+    component_spectrogram = apply_binary_mask(spectrogram, component_mask)
+    audio_component = recover_audio(component_spectrogram, frame_length, hop_size, data_length)
+    return audio_component, component_spectrogram
 
