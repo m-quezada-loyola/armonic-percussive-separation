@@ -1,6 +1,8 @@
 import numpy as np
 import librosa
 import scipy.signal as signal
+import soundfile as sf
+from os.path import join
 
 
 def calculate_spectrogram(audio_data, frame_length: int, hop_size: int):
@@ -89,3 +91,9 @@ def generate_hprs(data, fs, frame_length, hop_size, beta, harmonic_median_length
     }
 
     return audios, masks, spectrograms
+
+def save_audios(directory_name, audios, fs):
+    for key, value in audios.items():
+        path = join(directory_name, f'{key}.wav')
+        sf.write(path, value, fs)
+    return None
