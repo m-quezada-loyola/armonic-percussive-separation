@@ -4,8 +4,7 @@ import scipy.signal as signal
 
 
 def calculate_spectrogram(audio_data, frame_length: int, hop_size: int):
-    spectrogram = librosa.stft(audio_data, frame_length, hop_size, frame_length)
-    return spectrogram
+    return librosa.stft(audio_data, frame_length, hop_size, frame_length)
 
 
 def calculate_power_spectrogram(spectrogram):
