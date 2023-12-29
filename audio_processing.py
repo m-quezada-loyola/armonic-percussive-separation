@@ -13,13 +13,11 @@ def calculate_power_spectrogram(spectrogram):
 
 
 def vertical_median_filter(power_spectrogram, length):
-    filtered_spectrogram = signal.medfilt(power_spectrogram, [length, 1])
-    return filtered_spectrogram
+    return signal.medfilt(power_spectrogram, [length, 1])
 
 
 def horizontal_median_filter(power_spectrogram, length):
-    filtered_spectrogram = signal.medfilt(power_spectrogram, [1, length])
-    return filtered_spectrogram
+    return signal.medfilt(power_spectrogram, [1, length])
 
 
 def create_binary_masks(harmonic_spectrogram, percussive_spectrogram, beta):
