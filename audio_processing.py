@@ -31,22 +31,18 @@ def apply_binary_mask(spectrogram, mask):
 
 
 def recover_audio(spectrogram, frame_length, hop_size, data_length):
-    audio = librosa.istft(
+    return librosa.istft(
         spectrogram, hop_length=hop_size, win_length=frame_length, length=data_length
     )
-    return audio
 
 
 def calculate_frame_length(time_length, fs, hop_size):
-    frame_length = int(np.ceil(time_length * fs / hop_size))
-    return frame_length
+    return int(np.ceil(time_length * fs / hop_size))
 
 
 def calculate_bin_length(hertz_length, fs, frame_length):
-    bin_length = int(np.ceil(hertz_length * frame_length / fs))
-    return bin_length
+    return int(np.ceil(hertz_length * frame_length / fs))
 
 
 def even_to_odd(number):
-    odd_number = number + 1 if (number % 2 == 0) else number
-    return odd_number
+    return number + 1 if (number % 2 == 0) else number
