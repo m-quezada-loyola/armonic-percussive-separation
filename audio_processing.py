@@ -3,10 +3,11 @@ import librosa
 import scipy.signal as signal
 import soundfile as sf
 from os.path import join
-
+from file_managment import create_audio_directory, get_audio_files
+from graphics import save_plot_data
 
 def calculate_spectrogram(audio_data, frame_length: int, hop_size: int):
-    return librosa.stft(audio_data, frame_length, hop_size, frame_length)
+    return librosa.stft(audio_data, n_fft=frame_length, hop_length=hop_size, win_length=frame_length)
 
 
 def calculate_power_spectrogram(spectrogram):
@@ -26,7 +27,7 @@ def create_harmonic_mask(harmonic_power_spectrogram, percussive_power_spectrogra
 
 
 def create_percussive_mask(harmonic_power_spectrogram, percussive_power_spectrogram, beta):
-    return np.int8(harmonic_power_spectrogram > beta * percussive_power_spectrogram)
+    return np.int8(percussive_power_spectrogram > beta * harmonic_power_spectrogram)
 
 
 def create_residual_mask(harmonic_mask, percussive_mask):
@@ -97,3 +98,4 @@ def save_audios(directory_name, audios, fs):
         path = join(directory_name, f'{key}.wav')
         sf.write(path, value, fs)
     return None
+
