@@ -18,11 +18,14 @@ def vertical_median_filter(power_spectrogram, length):
 def horizontal_median_filter(power_spectrogram, length):
     return signal.medfilt(power_spectrogram, [1, length])
 
-def create_harmonic_mask(harmonic_spectrogram, percussive_spectrogram, beta):
-    return np.int8(harmonic_spectrogram >= beta * percussive_spectrogram)
 
-def create_percussive_mask(harmonic_spectrogram, percussive_spectrogram, beta):
-    return np.int8(percussive_spectrogram > beta * harmonic_spectrogram)
+def create_harmonic_mask(harmonic_power_spectrogram, percussive_power_spectrogram, beta):
+    return np.int8(harmonic_power_spectrogram >= beta * percussive_power_spectrogram)
+
+
+def create_percussive_mask(harmonic_power_spectrogram, percussive_power_spectrogram, beta):
+    return np.int8(harmonic_power_spectrogram > beta * percussive_power_spectrogram)
+
 
 def create_residual_mask(harmonic_mask, percussive_mask):
     return 1 - (harmonic_mask + percussive_mask)
@@ -48,3 +51,8 @@ def calculate_bin_length(hertz_length, fs, frame_length):
 def even_to_odd(number):
     return number + 1 if (number % 2 == 0) else number
 
+def generate_harmonic_component(spectrogram, harmonic_power_spectrogram, percussive_power_spectrogram, frame_length, hop_size, data_length):
+    harmonic_mask = create_harmonic_mask(harmonic_power_spectrogram, percussive_power_spectrogram)
+    harmonic_spectrogram = apply_binary_mask(spectrogram, harmonic_mask)
+    harmonic_audio = recover_audio(harmonic_spectrogram, frame_length, hop_size, data_length)
+    return harmonic_audio
