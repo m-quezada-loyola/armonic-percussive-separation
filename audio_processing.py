@@ -3,8 +3,7 @@ import librosa
 import scipy.signal as signal
 import soundfile as sf
 from os.path import join
-from file_managment import create_audio_directory, get_audio_files
-from graphics import save_plot_data
+
 
 def calculate_spectrogram(audio_data, frame_length: int, hop_size: int):
     return librosa.stft(audio_data, n_fft=frame_length, hop_length=hop_size, win_length=frame_length)
