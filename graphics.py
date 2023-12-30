@@ -19,4 +19,5 @@ def create_plot(data, title, directory_name, filename, hop_size, fs):
     ax.set(title=title)
     fig.colorbar(img, ax=ax, format="%+2.f dB")
     plt.savefig(filename, dpi=250)
+    plt.close()
     return None
